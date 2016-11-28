@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SecondOrderBezierView">
+        <attr name="point_radius" format="dimension"/>
+        <attr name="point_color" format="color"/>
+        <attr name="line_color" format="color"/>
+        <attr name="bezier_color" format="color"/>
+    </declare-styleable>
+    <declare-styleable name="ThreeOrderBezierView">
+        <attr name="cubic_point_radius" format="dimension"/>
+        <attr name="cubic_point_color" format="color"/>
+        <attr name="cubic_line_color" format="color"/>
+        <attr name="cubic_bezier_color" format="color"/>
+    </declare-styleable>
+</resources>

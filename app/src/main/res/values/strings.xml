@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">GreenDAO</string>
+    <string name="menu_item_1">item_1</string>
+    <string name="menu_item_2">item_2</string>
+    <string name="menu_item_3">item_3</string>
+    <string name="menu_item_4">item_4</string>
+    <string name="menu_item_5">item_5</string>
+    <string name="menu_item_6">item_6</string>
+    <string name="menu_item_7">item_7</string>
+    <string name="tool_bar_title">Title</string>
+    <string name="tool_bar_title_1">Title1</string>
+    <string name="tool_bar_title_2">Title2</string>
+</resources>
