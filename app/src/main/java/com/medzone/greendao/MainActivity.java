@@ -19,6 +19,8 @@ import com.medzone.greendao.bean.Student;
 import com.medzone.greendao.dao.StudentDao;
 import com.medzone.greendao.util.MathUtil;
 
+import org.greenrobot.greendao.rx.RxDao;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,24 +28,29 @@ import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private PopupMenu pmMenu;
-    private TextView tvHello, tvSave;
+    private TextView tvHello, tvSave, tvCount;
     private AppBarLayout ablAppBar;
     private CollapsingToolbarLayout ctlToolBar;
+    private RxDao<Student, Long> rxDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        StudentDao studentDao = ((App) getApplication()).getDaoSession().getStudentDao();
+        rxDao = new RxDao<>(studentDao);
 
         ctlToolBar = (CollapsingToolbarLayout) findViewById(R.id.ctl_toolbar);
         ablAppBar = (AppBarLayout) findViewById(R.id.apl_appbar);
         tvHello = (TextView) findViewById(R.id.tv_hello);
         tvSave = (TextView) findViewById(R.id.tv_save);
+        tvCount = (TextView) findViewById(R.id.tv_count);
         pmMenu = new PopupMenu(this, tvHello, Gravity.BOTTOM | Gravity.END);
         pmMenu.inflate(R.menu.menu_operation);
 
@@ -59,12 +66,25 @@ public class MainActivity extends AppCompatActivity {
         tvSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StudentDao studentDao = ((App) getApplication()).getDaoSession().getStudentDao();
                 Student student = new Student();
-                student.setName("LiLy");
-                long id = studentDao.insert(student);
-                student.setId(id);
-                Toast.makeText(MainActivity.this, student.toString(), Toast.LENGTH_LONG).show();
+                student.setName("LiLei");
+                rxDao.insert(student).subscribe(new Action1<Student>() {
+                    @Override
+                    public void call(Student student) {
+                        Toast.makeText(MainActivity.this, student.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+        tvCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDao.count().subscribe(new Action1<Long>() {
+                    @Override
+                    public void call(Long aLong) {
+                        Toast.makeText(MainActivity.this, aLong.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
         pmMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
