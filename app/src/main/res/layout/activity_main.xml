@@ -16,20 +16,20 @@
         android:id="@+id/apl_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:elevation="4dp"
         android:fitsSystemWindows="true"
-        android:hapticFeedbackEnabled="true"
-        android:elevation="4dp">
+        android:hapticFeedbackEnabled="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/ctl_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="4dp"
             app:collapsedTitleGravity="center_horizontal"
-            app:title="@string/tool_bar_title"
-            app:titleEnabled="true"
-            app:layout_scrollFlags="scroll|enterAlways"
             app:layout_collapseMode="none"
-            android:elevation="4dp">
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="@string/tool_bar_title"
+            app:titleEnabled="true">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -54,4 +54,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="save" />
 </LinearLayout>

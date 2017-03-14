@@ -29,6 +29,11 @@ public class Student {
     public Student() {
     }
 
+    @Override
+    public String toString() {
+        return id + ":" + name;
+    }
+
     public Long getId() {
         return this.id;
     }

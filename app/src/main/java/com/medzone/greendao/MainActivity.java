@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.medzone.greendao.bean.Student;
+import com.medzone.greendao.dao.StudentDao;
 import com.medzone.greendao.util.MathUtil;
 
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private PopupMenu pmMenu;
-    private TextView tvHello;
+    private TextView tvHello, tvSave;
     private AppBarLayout ablAppBar;
     private CollapsingToolbarLayout ctlToolBar;
 
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         ctlToolBar = (CollapsingToolbarLayout) findViewById(R.id.ctl_toolbar);
         ablAppBar = (AppBarLayout) findViewById(R.id.apl_appbar);
         tvHello = (TextView) findViewById(R.id.tv_hello);
+        tvSave = (TextView) findViewById(R.id.tv_save);
         pmMenu = new PopupMenu(this, tvHello, Gravity.BOTTOM | Gravity.END);
         pmMenu.inflate(R.menu.menu_operation);
 
@@ -51,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
                 Intent it = new Intent(MainActivity.this, CubicBezierActivity.class);
 //                Intent it = new Intent(MainActivity.this, BezierActivity.class);
                 MainActivity.this.startActivity(it);
+            }
+        });
+        tvSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StudentDao studentDao = ((App) getApplication()).getDaoSession().getStudentDao();
+                Student student = new Student();
+                student.setName("LiLy");
+                long id = studentDao.insert(student);
+                student.setId(id);
+                Toast.makeText(MainActivity.this, student.toString(), Toast.LENGTH_LONG).show();
             }
         });
         pmMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
